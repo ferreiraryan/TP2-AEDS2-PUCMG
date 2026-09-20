@@ -2,6 +2,85 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.Scanner;
 
+class Lista {
+  private Veiculo[] array;
+  private int n;
+
+  public Lista(int tamanho) {
+    array = new Veiculo[tamanho];
+    n = 0;
+  }
+
+  public void inserirInicio(Veiculo veiculo) {
+    if (n >= array.length)
+      return;
+
+    for (int i = n; i > 0; i--) {
+      array[i] = array[i - 1];
+    }
+    array[0] = veiculo;
+    n++;
+  }
+
+  public void inserir(Veiculo veiculo, int pos) {
+    if (n >= array.length || pos < 0 || pos > n)
+      return;
+
+    for (int i = n; i > pos; i--) {
+      array[i] = array[i - 1];
+    }
+    array[pos] = veiculo;
+    n++;
+  }
+
+  public void inserirFim(Veiculo veiculo) {
+    if (n >= array.length)
+      return;
+
+    array[n] = veiculo;
+    n++;
+  }
+
+  public Veiculo removerInicio() {
+    if (n == 0)
+      return null;
+
+    Veiculo resp = array[0];
+    n--;
+
+    for (int i = 0; i < n; i++) {
+      array[i] = array[i + 1];
+    }
+    return resp;
+  }
+
+  public Veiculo remover(int pos) {
+    if (n == 0 || pos < 0 || pos >= n)
+      return null;
+
+    Veiculo resp = array[pos];
+    n--;
+
+    for (int i = pos; i < n; i++) {
+      array[i] = array[i + 1];
+    }
+    return resp;
+  }
+
+  public Veiculo removerFim() {
+    if (n == 0)
+      return null;
+
+    return array[--n];
+  }
+
+  public void mostrar() {
+    for (int i = 0; i < n; i++) {
+      System.out.println(array[i].format());
+    }
+  }
+}
+
 class LeitorCsv {
 
   public static Veiculo[] ler(String caminhoArquivo) {
